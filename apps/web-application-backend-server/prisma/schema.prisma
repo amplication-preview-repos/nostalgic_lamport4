@@ -1,0 +1,80 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Service {
+  createdAt   DateTime @default(now())
+  description String?
+  id          String   @id @default(cuid())
+  name        String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Company {
+  createdAt   DateTime @default(now())
+  description String?
+  id          String   @id @default(cuid())
+  location    String?
+  name        String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Contact {
+  createdAt DateTime @default(now())
+  email     String?
+  id        String   @id @default(cuid())
+  name      String?
+  phone     String?
+  updatedAt DateTime @updatedAt
+}
+
+model Blog {
+  author      String?
+  content     String?
+  createdAt   DateTime  @default(now())
+  id          String    @id @default(cuid())
+  publishedAt DateTime?
+  title       String?
+  updatedAt   DateTime  @updatedAt
+}
+
+model Advertisement {
+  content        String?
+  createdAt      DateTime                    @default(now())
+  id             String                      @id @default(cuid())
+  status         EnumAdvertisementStatus?
+  targetAudience String?
+  title          String?
+  typeField      EnumAdvertisementTypeField?
+  updatedAt      DateTime                    @updatedAt
+}
+
+model User {
+  createdAt DateTime      @default(now())
+  email     String?       @unique
+  firstName String?
+  id        String        @id @default(cuid())
+  lastName  String?
+  password  String
+  role      EnumUserRole?
+  roles     Json
+  updatedAt DateTime      @updatedAt
+  username  String        @unique
+}
+
+enum EnumAdvertisementStatus {
+  Option1
+}
+
+enum EnumAdvertisementTypeField {
+  Option1
+}
+
+enum EnumUserRole {
+  Option1
+}
